@@ -1,35 +1,50 @@
 import requests
 import time
+import locale
+
+locale.setlocale(locale.LC_ALL, 'es_AR.utf8')
 
 r = requests.get("https://api.bluelytics.com.ar/v2/latest")
 contenido = r.json()
 dolar_bna = contenido["oficial"]["value_sell"] - 1
 dolar_sistema = dolar_bna + 12
 
+rentabilidad = 1.35
 
 while True:
     print("Ingrese una opción")
+    print(f"0. Modificar rentabilidad ({str(rentabilidad).replace('1.', '')}%)")
     print("1. Calcular costo proveedores (10.5% + 5%)")
     print("2. Calcular costo ML (+2%)")
     print("3. Calcular costo monitores (23% + 21% + 5%)")
     print("4. Consultar dolar")
     print("5. Salir")
+
     try:
         opcion = int(input(">>> "))
+        if opcion == 0:
+            rentabilidad = 1.35
+            inp_rentabilidad = float(input("Ingrese la rentabilidad: "))
+            rentabilidad = inp_rentabilidad
+            print("Rentabilidad actual: " + str(rentabilidad))
+            print()
         if opcion == 1:
             inp_costo = float(input("Ingrese el costo: "))
             costo = inp_costo * dolar_bna / dolar_sistema * 1.105 * 1.05
-            print(round(costo, 2))
+            print(locale.currency(round(costo, 2), grouping=True))
+            print(locale.currency(round(costo * rentabilidad * dolar_sistema), grouping=True))
             print()
         elif opcion == 2:
             inp_costo = float(input("Ingrese el costo en pesos: $"))
             costo1 = inp_costo / dolar_sistema * 1.02
-            print(costo1)
+            print(locale.currency(round(costo1, 2), grouping=True))
+            print(locale.currency(round(costo1 * rentabilidad * dolar_sistema), grouping=True))
             print()
         elif opcion == 3:
             inp_costo = float(input("Ingrese el costo: "))
             costo_monitor = inp_costo * dolar_bna / dolar_sistema * 1.23 * 1.21 * 1.05
-            print(round(costo_monitor, 2))
+            print(locale.currency(round(costo_monitor, 2), grouping=True))
+            print(locale.currency(round(costo_monitor * rentabilidad * dolar_sistema), grouping=True))
             print()
         elif opcion == 4:
             print("Dolar BNA: " + str(dolar_bna))
@@ -37,10 +52,9 @@ while True:
             print()
         elif opcion == 5:
             print("Saliendo...")
-            time.sleep(1)
+            time.sleep(1.5)
             break
         else:
-            print("Opción inválida")
             print()
     except ValueError:
         print("Ingrese un número válido")
