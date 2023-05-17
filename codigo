@@ -12,7 +12,7 @@ dolar_sistema = dolar_bna + 12
 rentabilidad = 1.35
 
 while True:
-    print("Ingrese una opción")
+    print("Ingrese una opción:")
     print(f"0. Modificar rentabilidad ({str(rentabilidad).replace('1.', '')}%)")
     print("1. Calcular costo proveedores (10.5% + 5%)")
     print("2. Calcular costo porveedores (21% + 5%)")
