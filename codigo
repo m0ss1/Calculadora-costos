@@ -15,10 +15,11 @@ while True:
     print("Ingrese una opción")
     print(f"0. Modificar rentabilidad ({str(rentabilidad).replace('1.', '')}%)")
     print("1. Calcular costo proveedores (10.5% + 5%)")
-    print("2. Calcular costo ML (+2%)")
-    print("3. Calcular costo monitores (23% + 21% + 5%)")
-    print("4. Consultar dolar")
-    print("5. Salir")
+    print("2. Calcular costo porveedores (21% + 5%)")
+    print("3. Calcular costo ML (+2%)")
+    print("4. Calcular costo monitores (23% + 21% + 5%)")
+    print("5. Consultar dolar")
+    print("6. Salir")
 
     try:
         opcion = int(input(">>> "))
@@ -34,23 +35,30 @@ while True:
             print(locale.currency(round(costo, 2), grouping=True))
             print(locale.currency(round(costo * rentabilidad * dolar_sistema), grouping=True))
             print()
-        elif opcion == 2:
+        if opcion == 2:
+            inp_costo = float(input("Ingrese el costo: "))
+            costo = inp_costo * dolar_bna / dolar_sistema * 1.21 * 1.05
+            print(locale.currency(round(costo, 2), grouping=True))
+            print(locale.currency(round(costo * rentabilidad * dolar_sistema), grouping=True))
+            print()
+        elif opcion == 3:
             inp_costo = float(input("Ingrese el costo en pesos: $"))
             costo1 = inp_costo / dolar_sistema * 1.02
             print(locale.currency(round(costo1, 2), grouping=True))
             print(locale.currency(round(costo1 * rentabilidad * dolar_sistema), grouping=True))
             print()
-        elif opcion == 3:
+        elif opcion == 4:
             inp_costo = float(input("Ingrese el costo: "))
             costo_monitor = inp_costo * dolar_bna / dolar_sistema * 1.23 * 1.21 * 1.05
             print(locale.currency(round(costo_monitor, 2), grouping=True))
             print(locale.currency(round(costo_monitor * rentabilidad * dolar_sistema), grouping=True))
             print()
-        elif opcion == 4:
+        elif opcion == 5:
             print("Dolar BNA: " + str(dolar_bna))
             print("Dolar Sistema: " + str(dolar_sistema))
             print()
-        elif opcion == 5:
+        elif opcion == 6:
+            print("Saliendo...")
             print("Saliendo...")
             time.sleep(1.5)
             break
@@ -58,4 +66,7 @@ while True:
             print()
     except ValueError:
         print("Ingrese un número válido")
+        print()
+    except KeyboardInterrupt:
+        print()
         print()
