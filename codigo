@@ -59,7 +59,6 @@ while True:
             print()
         elif opcion == 6:
             print("Saliendo...")
-            print("Saliendo...")
             time.sleep(1.5)
             break
         else:
